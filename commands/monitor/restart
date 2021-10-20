@@ -1,0 +1,25 @@
+#!/bin/bash
+
+help() {
+  echo "Usage:"
+  echo "  zvscode monitor restart"
+}
+
+core() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  local service_name="vscode_protect"
+
+  zdaemon restart $service_name
+
+  log_success "restart vscode monitor at $(date)"
+}
+
+run() {
+  core $@
+}
+
+run $@

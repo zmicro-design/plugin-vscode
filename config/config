@@ -1,0 +1,7 @@
+export PLUGIN_VSCODE_NAME=vscode
+
+export PLUGIN_VSCODE_DATA=$(plugin_get_app_data_path $PLUGIN_VSCODE_NAME)
+export PLUGIN_VSCODE_LOGS=$(plugin_get_app_logs_path $PLUGIN_VSCODE_NAME)
+export PLUGIN_VSCODE_CONFIGS=$(plugin_get_app_configs_path $PLUGIN_VSCODE_NAME)/config
+
+

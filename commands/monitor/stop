@@ -1,0 +1,25 @@
+#!/bin/bash
+
+help() {
+  echo "Usage:"
+  echo "  zvscode monitor stop"
+}
+
+core() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  local service_name="vscode_protect"
+
+  zdaemon stop $service_name
+
+  log_success "stop vscode monitor at $(date)"
+}
+
+run() {
+  core $@
+}
+
+run $@

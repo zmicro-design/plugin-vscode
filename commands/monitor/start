@@ -1,0 +1,29 @@
+#!/bin/bash
+
+help() {
+  echo "Usage:"
+  echo "  zvscode monitor start"
+}
+
+core() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  local service_name="vscode_protect"
+  zdaemon list | grep $service_name >>/dev/null 2>&1
+  if [ "$?" != "0" ]; then
+    zdaemon create $service_name zvscode protect
+  else
+    zdaemon start $service_name
+  fi
+
+  log_success "start vscode monitor at $(date)"
+}
+
+run() {
+  core $@
+}
+
+run $@

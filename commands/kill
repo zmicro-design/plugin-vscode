@@ -1,0 +1,23 @@
+#!/bin/bash
+
+help() {
+  echo "Usage:"
+  echo "  zvscode kill"
+}
+
+core() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    help
+    exit 0
+  fi
+
+  vscode::kill
+
+  log_success "kill vscode at $(date)"
+}
+
+run() {
+  core $@
+}
+
+run $@
