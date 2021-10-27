@@ -13,7 +13,7 @@ core() {
 
   vscode::kill
 
-  log_success "kill vscode at $(date)"
+  log::success "kill vscode at $(date)"
 }
 
 run() {

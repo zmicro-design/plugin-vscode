@@ -15,7 +15,7 @@ core() {
 
   zdaemon stop $service_name
 
-  log_success "stop vscode monitor at $(date)"
+  log::success "stop vscode monitor at $(date)"
 }
 
 run() {

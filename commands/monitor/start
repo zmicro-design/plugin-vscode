@@ -19,7 +19,7 @@ core() {
     zdaemon start $service_name
   fi
 
-  log_success "start vscode monitor at $(date)"
+  log::success "start vscode monitor at $(date)"
 }
 
 run() {

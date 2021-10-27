@@ -15,7 +15,7 @@ core() {
 
   zdaemon restart $service_name
 
-  log_success "restart vscode monitor at $(date)"
+  log::success "restart vscode monitor at $(date)"
 }
 
 run() {
