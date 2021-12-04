@@ -92,7 +92,7 @@ vscode::usage() {
   
   local memory=$(vscode::memory $progresses)
   local progress_count=$(vscode::count_progresses $progresses)
-  local system_memory_used=$(os::get_system_memory_used)
+  local system_memory_used=$(os::memory_usage percent)
   log::warn "vscode 清理(系统内存使用率：$system_memory_used% vscode 占用内存: ${memory}M, 进程数: $progress_count)"
 }
 
