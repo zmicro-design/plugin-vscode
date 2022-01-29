@@ -1,0 +1,43 @@
+#!/bin/bash
+
+DAEMON_NAME=vscode_server
+DAEMON_COMMAND="zmicro vscode server run"
+EXTENSION_DIR=$HOME/.config/extensions
+
+help() {
+  echo "Usage:"
+  echo "  zvscode server start"
+}
+
+check_dependencies() {
+  which code-server >> /dev/null 2>&1
+  if [ "$?" != "0" ]; then
+    zmicro package install code-server
+  fi
+}
+
+check_daemon() {
+  zdaemon status $DAEMON_NAME | grep "not found" >> /dev/null 2>&1
+  if [ "$?" != "0" ]; then
+    zdaemon create $DAEMON_NAME "$DAEMON_COMMAND"
+  fi
+}
+
+core() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    code-server -h
+    exit 0
+  fi
+
+  check_dependencies
+
+  check_daemon
+
+  zdaemon restart $DAEMON_NAME
+}
+
+run() {
+  core "$@"
+}
+
+run "$@"

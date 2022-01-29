@@ -1,0 +1,51 @@
+#!/bin/bash
+
+EXTENSION_DIR=$HOME/.config/extensions
+
+help() {
+  echo "Usage:"
+  echo "  zvscode server run"
+}
+
+check_dependencies() {
+  which code-server >> /dev/null 2>&1
+  if [ "$?" != "0" ]; then
+    zmicro package install code-server
+  fi
+}
+
+core() {
+  if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    code-server -h
+    exit 0
+  fi
+
+  check_dependencies
+
+  local default_args="--disable-update-check"
+
+  # default auth none
+  echo "$@" | grep "--auth" >> /dev/null 2>&1
+  if [ "$?" != "0" ]; then
+    default_args="${default_args} --auth none"
+  fi
+
+  # default extension dir
+  echo "$@" | grep "--config" >> /dev/null 2>&1
+  if [ "$?" != "0" ]; then
+    if [ ! -d "$EXTENSION_DIR" ]; then
+      mkdir -p $EXTENSION_DIR
+    fi
+
+    default_args="${default_args} --extensions-dir $EXTENSION_DIR"
+  fi
+
+  # echo "default_args: $default_args"
+  code-server $default_args "$@"
+}
+
+run() {
+  core "$@"
+}
+
+run "$@"
